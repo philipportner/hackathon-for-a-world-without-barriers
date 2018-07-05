@@ -15,4 +15,4 @@ setup:
 		python-scipy python-matplotlib
 
 clean:
-	rm dict/*.raw && ./sopare.py -d "*"
+	rm -f dict/*.raw && ./sopare.py -d "*"
