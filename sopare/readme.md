@@ -71,7 +71,7 @@ Next steps/TODOs:
 
   * Optimizations (e.g. word separation, performance)
   * Python3 compatibility and testing, install guides
-  * Filter/Avg noise, individual loglevels per class
+  * Individual loglevels per class
 
 
 Project status:
