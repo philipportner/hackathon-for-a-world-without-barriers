@@ -9,5 +9,10 @@ learn:
 save:
 	./sopare.py -c
 
+setup:
+	sudo apt-get update && \
+		sudo apt-get install build-essential python-pyaudio python-numpy \
+		python-scipy python-matplotlib
+
 clean:
 	rm dict/*.raw && ./sopare.py -d "*"
