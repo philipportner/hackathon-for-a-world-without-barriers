@@ -18,6 +18,28 @@ under the License.
 """
 
 # Default plugin for output of analysis
+import os
+
+if os.uname()[1] == 'raspberrypi':
+    import RPi.GPIO as GPIO
+
+    raspberry = True
+    GPIO.setmode(GPIO.BOARD)
+    relais = 12
+    GPIO.setup(relais, GPIO.OUT)
+    GPIO.output(relais, GPIO.HIGH)
+
+aus = "aus"
+ein = "ein"
 
 def run(readable_results, data, rawbuf):
-    print readable_results
+    if len(readable_results) > 0:
+        if raspberry and readable_results[0] == aus:
+            GPIO.output(relais, GPIO.LOW)
+            print "juhu ausschalten"
+
+        elif raspberry and readable_results[0] == ein:
+            GPIO.output(relais, GPIO.HIGH)
+            print "juhu einschalten"
+    else:
+        print "not known"
