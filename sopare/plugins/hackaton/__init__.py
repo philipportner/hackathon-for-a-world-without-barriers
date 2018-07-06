@@ -45,7 +45,6 @@ if os.uname()[1] == raspberry_uname:
 
 def run(readable_results, data, rawbuf):
     global current_state
-    readable_results.append(on)
 
     if len(readable_results) > 0:
 
