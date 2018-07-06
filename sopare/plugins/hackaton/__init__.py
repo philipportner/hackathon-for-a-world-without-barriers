@@ -20,6 +20,11 @@ under the License.
 # Default plugin for output of analysis
 import os
 
+# Global defaults...
+aus = "aus"
+ein = "ein"
+raspberry = False
+
 if os.uname()[1] == 'raspberrypi':
     import RPi.GPIO as GPIO
 
@@ -28,9 +33,6 @@ if os.uname()[1] == 'raspberrypi':
     relais = 12
     GPIO.setup(relais, GPIO.OUT)
     GPIO.output(relais, GPIO.HIGH)
-
-aus = "aus"
-ein = "ein"
 
 def run(readable_results, data, rawbuf):
     if len(readable_results) > 0:
