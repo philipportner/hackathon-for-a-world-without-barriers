@@ -7,8 +7,14 @@ run:
 learn: clean-samples
 	./learn.sh
 
+# ./train.sh
 train: clean
-	./train.sh
+	./sopare.py -v -t ein && \
+	./sopare.py -v -t ein && \
+	./sopare.py -v -t ein && \
+	./sopare.py -v -t aus && \
+	./sopare.py -v -t aus && \
+	./sopare.py -v -t aus
 
 save:
 	./sopare.py -c
