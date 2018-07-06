@@ -3,6 +3,6 @@
 *.pyc
 *.pyo
 *.raw
-*.wav
+/tokens/*.wav
 *.png
 error.log

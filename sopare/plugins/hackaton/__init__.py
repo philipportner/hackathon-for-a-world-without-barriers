@@ -21,27 +21,73 @@ under the License.
 import os
 
 # Global defaults...
-aus = "aus"
-ein = "ein"
+import pyaudio
+import wave
+
+off = "aus"
+on = "ein"
+state = "status"
+current_state = off
+
 raspberry = False
+raspberry_uname = 'raspberrypi'
 
-if os.uname()[1] == 'raspberrypi':
-    import RPi.GPIO as GPIO
-
+if os.uname()[1] == raspberry_uname:
     raspberry = True
+
+    import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BOARD)
     relais = 12
     GPIO.setup(relais, GPIO.OUT)
     GPIO.output(relais, GPIO.HIGH)
+    current_state = on
+
 
 def run(readable_results, data, rawbuf):
-    if len(readable_results) > 0:
-        if raspberry and readable_results[0] == aus:
-            GPIO.output(relais, GPIO.LOW)
-            print "juhu ausschalten"
+    global current_state
+    readable_results.append(on)
 
-        elif raspberry and readable_results[0] == ein:
-            GPIO.output(relais, GPIO.HIGH)
-            print "juhu einschalten"
+    if len(readable_results) > 0:
+
+        if readable_results[0] == off and current_state != off:
+            current_state = off
+            print current_state
+            if raspberry:
+                GPIO.output(relais, GPIO.LOW)
+                play_audio(off)
+
+        elif readable_results[0] == on and current_state != on:
+            current_state = on
+            print current_state
+            if raspberry:
+                GPIO.output(relais, GPIO.HIGH)
+                play_audio(on)
+
+        elif readable_results[0] == state:
+            if raspberry and current_state == on:
+                play_audio(on)
+            elif raspberry and current_state == off:
+                play_audio(off)
+            print "state: " + current_state
+
     else:
         print "not known"
+
+
+def play_audio(cmd):
+    import pygame
+    pygame.mixer.init()
+
+    wavefile = ''
+    if cmd == on:
+        wavefile = "./audio/on.wav"
+    elif cmd == off:
+        wavefile = "./audio/off.wav"
+
+    if not os.path.isfile(wavefile):
+        return
+
+    pygame.mixer.music.load(wavefile)
+    pygame.mixer.music.play()
+    while pygame.mixer.music.get_busy() == True:
+        continue
