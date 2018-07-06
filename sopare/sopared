@@ -15,10 +15,10 @@
 ### END INIT INFO
 
 DIR=/opt/sopare
-DAEMON=$DIR/sopare.py -l
+DAEMON=$DIR/sopare.py
 DAEMON_NAME=sopared
 
-DAEMON_OPTS=""
+DAEMON_OPTS="-l"
 
 # This next line determines what user the script runs as.
 # Root generally not recommended but necessary if you are using the Raspberry

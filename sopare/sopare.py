@@ -26,6 +26,9 @@ import sopare.log as log
 import test.unit_tests as tests
 from sopare.version import __version__
 
+import os
+os.chdir(os.path.realpath(os.path.dirname(__file__)))
+
 def main(argv):
     endless_loop = False
     debug = False
@@ -51,7 +54,7 @@ def main(argv):
         except getopt.GetoptError:
             usage()
             sys.exit(2)
-        for opt, arg in opts: 
+        for opt, arg in opts:
             if (opt in ("-h", "--help")):
                 usage()
                 sys.exit(0)
